@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>한국 공휴일 조회</title>
+    <link rel="stylesheet" href="/static/style.css">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>한국 공휴일 조회</h1>
+            <p>언제 쉬는지 확인해보세요</p>
+        </header>
+
+        <section class="search-box">
+            <form action="/" method="get">
+                <div class="input-row">
+                    <div class="input-group">
+                        <label for="from">시작일</label>
+                        <input type="text" id="from" name="from" placeholder="예: 2025/01" value="{{ from_val }}" autocomplete="off">
+                    </div>
+                    <div class="input-group">
+                        <label for="to">종료일</label>
+                        <input type="text" id="to" name="to" placeholder="예: 2026" value="{{ to_val }}" autocomplete="off">
+                    </div>
+                </div>
+                <button type="submit" class="btn-search">조회하기</button>
+            </form>
+            <div class="info-text">
+                <strong>조회 팁</strong>
+                <ul>
+                    <li>2025/01 ~ 2026</li>
+                    <li>2025 (1년 전체)</li>
+                    <li>2025/05 (해당 월)</li>
+                    <li>2025/01 ~ (현재까지)</li>
+                </ul>
+            </div>
+        </section>
+
+        {% if error_msg %}
+        <div class="alert error">{{ error_msg }}</div>
+        {% endif %}
+
+        <section class="result-box">
+            {% if holidays %}
+            <div class="result-header">
+                <h2>조회 결과 <span style="color: var(--toss-blue); opacity: 0.8;">{{ holidays|length }}</span></h2>
+                <button type="button" class="btn-copy" onclick="copyToClipboard()">결과 복사</button>
+            </div>
+            
+            <div class="holiday-list">
+                <!-- 리스트 헤더 -->
+                <div class="holiday-list-header">
+                    <span class="col-date">날짜 (요일)</span>
+                    <span>공휴일 명칭</span>
+                </div>
+
+                {% set weekdays = ['월', '화', '수', '목', '금', '토', '일'] %}
+                {% for holiday in holidays %}
+                {% set day_name = weekdays[holiday.formatted_date.weekday()] %}
+                <div class="holiday-item">
+                    <div class="holiday-content">
+                        <div class="col-date">
+                            <span class="holiday-date-text">
+                                {{ holiday.formatted_date.strftime('%Y-%m-%d') }} ({{ day_name }})
+                            </span>
+                        </div>
+                        <span class="holiday-name-text">{{ holiday.date_name }}</span>
+                    </div>
+                </div>
+                {% endfor %}
+            </div>
+
+            <!-- 엑셀 복사용 숨겨진 테이블 -->
+            <table id="holiday-table">
+                <thead>
+                    <tr>
+                        <th>날짜</th>
+                        <th>요일</th>
+                        <th>공휴일 명칭</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for holiday in holidays %}
+                    {% set day_name = weekdays[holiday.formatted_date.weekday()] %}
+                    <tr>
+                        <td>{{ holiday.formatted_date.strftime('%Y-%m-%d') }}</td>
+                        <td>{{ day_name }}</td>
+                        <td>{{ holiday.date_name }}</td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+            {% elif from_val or to_val %}
+            <p class="no-data">해당하는 정보가 없어요</p>
+            {% else %}
+            <p class="welcome-msg">조회 조건을 입력하고<br>아래 버튼을 눌러주세요</p>
+            {% endif %}
+        </section>
+    </div>
+
+    <div id="toast" class="toast">복사되었습니다. 엑셀에 붙여넣으세요.</div>
+
+    <script>
+        function copyToClipboard() {
+            const table = document.getElementById('holiday-table');
+            if (!table) return;
+
+            let tsv = '';
+            const rows = table.querySelectorAll('tr');
+            
+            rows.forEach((row) => {
+                const cols = row.querySelectorAll('th, td');
+                const rowData = Array.from(cols).map(col => col.innerText.trim()).join('\t');
+                tsv += rowData + '\n';
+            });
+
+            navigator.clipboard.writeText(tsv).then(() => {
+                showToast();
+            }).catch(err => {
+                console.error('복사 실패:', err);
+                alert('복사 중 오류가 발생했습니다.');
+            });
+        }
+
+        function showToast() {
+            const toast = document.getElementById('toast');
+            toast.classList.add('show');
+            setTimeout(() => {
+                toast.classList.remove('show');
+            }, 3000);
+        }
+    </script>
+</body>
+</html>

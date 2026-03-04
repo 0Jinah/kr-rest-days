@@ -1,0 +1,275 @@
+:root {
+    --toss-blue: #0064ff;
+    --toss-blue-hover: #1b64da;
+    --toss-bg: #f2f4f6;
+    --toss-card-bg: #ffffff;
+    --toss-text-primary: #191f28;
+    --toss-text-secondary: #4e5968;
+    --toss-text-tertiary: #8b95a1;
+    --toss-border: #f2f4f6;
+    --toss-shadow: 0 8px 16px rgba(0, 0, 0, 0.05);
+}
+
+body {
+    font-family: 'Pretendard', -apple-system, BlinkMacSystemFont, system-ui, Roboto, sans-serif;
+    background-color: var(--toss-bg);
+    color: var(--toss-text-primary);
+    line-height: 1.5;
+    margin: 0;
+    padding: 0;
+    -webkit-font-smoothing: antialiased;
+}
+
+.container {
+    max-width: 640px;
+    margin: 0 auto;
+    padding: 3rem 1.5rem;
+}
+
+header {
+    margin-bottom: 2.5rem;
+    padding-left: 0.5rem;
+}
+
+header h1 {
+    font-size: 2rem;
+    font-weight: 700;
+    color: var(--toss-text-primary);
+    margin: 0 0 0.5rem 0;
+    letter-spacing: -0.02em;
+}
+
+header p {
+    font-size: 1.125rem;
+    color: var(--toss-text-secondary);
+    margin: 0;
+}
+
+section {
+    background: var(--toss-card-bg);
+    border-radius: 1.5rem;
+    padding: 2rem;
+    box-shadow: var(--toss-shadow);
+    margin-bottom: 1.5rem;
+}
+
+.search-box form {
+    display: flex;
+    flex-direction: column;
+    gap: 1.25rem;
+}
+
+.input-row {
+    display: flex;
+    gap: 1rem;
+}
+
+.input-group {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+}
+
+.input-group label {
+    font-size: 0.875rem;
+    font-weight: 600;
+    margin-bottom: 0.75rem;
+    color: var(--toss-text-secondary);
+    padding-left: 0.25rem;
+}
+
+.input-group input {
+    padding: 1rem;
+    border: 1px solid transparent;
+    border-radius: 0.75rem;
+    font-size: 1.0625rem;
+    background-color: #f9fafb;
+    transition: all 0.2s ease;
+    color: var(--toss-text-primary);
+}
+
+.input-group input:focus {
+    outline: none;
+    border-color: var(--toss-blue);
+    background-color: #fff;
+    box-shadow: 0 0 0 3px rgba(0, 100, 255, 0.1);
+}
+
+.btn-search {
+    background-color: var(--toss-blue);
+    color: white;
+    border: none;
+    padding: 1.125rem;
+    border-radius: 0.75rem;
+    font-size: 1.125rem;
+    font-weight: 700;
+    cursor: pointer;
+    transition: background-color 0.2s ease;
+    margin-top: 0.5rem;
+}
+
+.btn-search:hover {
+    background-color: var(--toss-blue-hover);
+}
+
+.info-text {
+    font-size: 0.875rem;
+    background: #f9fafb;
+    padding: 1.25rem;
+    border-radius: 1rem;
+    color: var(--toss-text-secondary);
+}
+
+.info-text ul {
+    margin: 0.5rem 0 0 0;
+    padding-left: 1.25rem;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 0.5rem;
+}
+
+.alert {
+    padding: 1rem;
+    border-radius: 1rem;
+    margin-bottom: 1rem;
+    text-align: center;
+    font-weight: 600;
+}
+
+.error {
+    background: #fff0f0;
+    color: #f04452;
+}
+
+.result-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 2rem;
+}
+
+.result-header h2 {
+    font-size: 1.5rem;
+    font-weight: 700;
+    margin: 0;
+}
+
+.btn-copy {
+    background-color: #f2f4f6;
+    color: var(--toss-text-secondary);
+    border: none;
+    padding: 0.625rem 1rem;
+    border-radius: 0.5rem;
+    font-size: 0.875rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background-color 0.2s ease;
+}
+
+.btn-copy:hover {
+    background-color: #e5e8eb;
+}
+
+/* 조회 결과 리스트 및 헤더 */
+.holiday-list {
+    display: flex;
+    flex-direction: column;
+}
+
+.holiday-list-header {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 1.5rem;
+    padding: 0.75rem 0.5rem;
+    border-bottom: 1px solid var(--toss-border);
+    color: var(--toss-text-tertiary);
+    font-size: 0.875rem;
+    font-weight: 600;
+}
+
+.holiday-item {
+    padding: 1.25rem 0.5rem;
+    border-bottom: 1px solid var(--toss-border);
+    transition: background-color 0.2s ease;
+    cursor: default;
+}
+
+.holiday-item:hover {
+    background-color: #f9fafb;
+    border-radius: 0.75rem;
+}
+
+.holiday-item:last-child {
+    border-bottom: none;
+}
+
+.holiday-content {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 1.5rem;
+    width: 100%;
+}
+
+.col-date {
+    min-width: 160px;
+    font-size: 1.0625rem;
+    font-variant-numeric: tabular-nums;
+}
+
+.holiday-date-text {
+    color: var(--toss-text-secondary);
+    font-weight: 500;
+}
+
+.holiday-name-text {
+    font-size: 1.125rem;
+    font-weight: 600;
+    color: var(--toss-text-primary);
+}
+
+/* 토스트 알림 */
+.toast {
+    visibility: hidden;
+    min-width: 280px;
+    background-color: rgba(25, 31, 40, 0.9);
+    backdrop-filter: blur(8px);
+    color: #fff;
+    text-align: center;
+    border-radius: 1rem;
+    padding: 1.125rem;
+    position: fixed;
+    z-index: 1000;
+    left: 50%;
+    bottom: 40px;
+    transform: translateX(-50%);
+    font-weight: 600;
+    font-size: 0.9375rem;
+}
+
+.toast.show {
+    visibility: visible;
+    animation: tossFadeIn 0.4s ease-out, tossFadeOut 0.4s ease-in 2.6s;
+}
+
+@keyframes tossFadeIn {
+    from { bottom: 0; opacity: 0; transform: translate(-50%, 20px); }
+    to { bottom: 40px; opacity: 1; transform: translate(-50%, 0); }
+}
+
+@keyframes tossFadeOut {
+    from { bottom: 40px; opacity: 1; transform: translate(-50%, 0); }
+    to { bottom: 0; opacity: 0; transform: translate(-50%, 20px); }
+}
+
+.no-data, .welcome-msg {
+    text-align: center;
+    color: var(--toss-text-tertiary);
+    padding: 4rem 0;
+    font-size: 1.0625rem;
+}
+
+#holiday-table {
+    display: none;
+}
